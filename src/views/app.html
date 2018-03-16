@@ -1,0 +1,13 @@
+---
+title: "Carbon Strava"
+body: app
+api: testimonials
+description: "love riding your bike"
+---
+
+{% set pageBody = "./pages/" + body + ".html"  %}
+{% extends baseTemplate %}
+
+{% block content %}
+{% include pageBody %}
+{% endblock %}

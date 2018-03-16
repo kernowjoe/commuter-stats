@@ -1,0 +1,43 @@
+#profile {
+
+  img {
+
+    border-radius:50%;
+    border:1px solid #000
+  }
+  h2 {
+
+
+    span {
+      display:block;
+      color: #8c8c8c;
+      font-size: 0.7em;
+    }
+  }
+
+}
+
+.tree {
+
+  margin-top:2em;
+  border-bottom: 1px solid #ccc;
+  vertical-align: auto;
+}
+
+dl {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  height: 5em;
+}
+
+dd, dt {
+  flex-basis: 50%;
+}
+
+dt {
+  color: #8f8f8f;
+}
+dd {
+  font-size:1.2em;
+}

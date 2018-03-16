@@ -30,7 +30,7 @@
     "gulp-rename": "*",
     "gulp-sass": "*",
     "gulp-sequence": "*",
-    "gulp-uglify": "*",
+    "gulp-uglify-es": "*",
     "gulp-webserver": "*",
     "js-yaml": "^3.8.2",
     "mkdirp": "^0.5.1",

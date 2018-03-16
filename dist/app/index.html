@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <title>Maintain bikes - CarbonStrava</title>
+    <title>Maintain bikes - Carbon Strava</title>
 
     <!-- META DATA -->
 
@@ -46,16 +46,16 @@
     <!-- FAVICONS -->
 
     <!-- description and share tags -->
-    <meta name="description" content="carbon strava">
+    <meta name="description" content="love riding your bike">
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="Maintain Bikes">
-    <meta property="og:url" content="https://www.maintain.com/">
+    <meta property="og:url" content="https://www.maintain.com/app">
     <meta property="og:site_name" content="Maintain Bikes">
-    <meta property="og:description" content="carbon strava">
+    <meta property="og:description" content="love riding your bike">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Maintain Bikes">
-    <meta name="twitter:description" content="carbon strava">
+    <meta name="twitter:description" content="love riding your bike">
 </head>
 <body class="csstransitions">
 
@@ -111,208 +111,26 @@
 <div class="container animated" data-animation="fadeInRight" data-animation-delay="1000">
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
-            <div class="section-header">
-                <h2 class="section-title">Register with CarbonStrava</h2><!-- END TITLE -->
-                <div class="line-separate line-white line-center 1000"><span></span></div>
+
+            <div id="profile">
+
             </div>
-            <div class="slide-content">
-                <p class="color-white onstart">
-                    Powered by Strava to track your gear's usage
-                </p>
-                <a href="" id="register" class="external border-button go-slide onstart">Connect with STRAVA</a>
-            </div>
+
+            <dl>
+                <dt>Total distance commuting</dt><dd id="distance"><i class="fa fa-spin fa-spinner"></i> </dd>
+                <dt>Total CO2 saved from commuting</dt><dd id="co2"><i class="fa fa-spin fa-spinner"></i> </dd>
+                <dt>total calories burnt commuting</dt><dd id="calories"><i class="fa fa-spin fa-spinner"></i> </dd>
+            </dl>
+
+
+            <section class="tree">
+                <img src="/assets/tree.png">
+            </section>
 
         </div>
     </div>
 </div>
 
-<script>
-
-    (() => {
-
-        let location = window.location;
-
-
-        hasAuth();
-
-        function hasAuth() {
-
-            // check local storage for auth token...
-            if (localStorage.getItem('strava-auth')) {
-
-                showApp();
-            } else {
-
-                !!location.search ? getCredentials() : setUrl();
-            }
-
-
-            // else do the login stuff
-        }
-
-
-        function getCredentials() {
-
-            let pairs = location.search.substring(1).split("&"),
-                obj   = {},
-                pair;
-
-            for (let i in pairs) {
-                if (pairs[i] === "") continue;
-
-                pair = pairs[i].split("=");
-                !!pair[1] && (obj[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1]));
-            }
-            console.log('get credentials : ', obj.code);
-
-            let xhr = new XMLHttpRequest();
-            xhr.open("PUT", 'https://1qnaxp9rb8.execute-api.eu-west-2.amazonaws.com/Live', true);
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.send(JSON.stringify({
-                                        code: obj.code
-                                    }));
-
-            xhr.onreadystatechange = processRequest;
-
-            function processRequest(e) {
-
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    let response = JSON.parse(xhr.responseText);
-                    console.log(response);
-
-                    localStorage.setItem('strava-auth', response.access_token);
-                    localStorage.setItem('strava-profile', JSON.stringify(response.athlete));
-
-                    showApp();
-
-                }
-            }
-
-        }
-
-        function showApp() {
-
-            Promise.resolve()
-                   .then(() => window.loadPage('/app'))
-                   .then(() => app());
-        }
-
-        function setUrl() {
-
-            let authUrl = 'https://www.strava.com/oauth/authorize?';
-
-            let parts = {
-                approval_prompt: 'force',
-                client_id:       '14427',
-                redirect_uri:    'http://localhost:8000/auth',
-                response_type:   'code',
-                scope:           'view_private',
-            };
-
-            console.log(parts);
-
-            Object.keys(parts).forEach(part => authUrl += `${part}=${parts[part]}&`);
-
-            authUrl = encodeURI(authUrl.replace(/\&$/, ''));
-
-            document.getElementById('register').href = authUrl;
-        }
-
-        function app() {
-
-            console.log('run the app...')
-
-            let athlete = JSON.parse(localStorage.getItem('strava-profile'));
-
-            let calories = 0,
-                co2      = 0,
-                distance = 0;
-
-            let beginningOfYear = new Date();
-
-            beginningOfYear.setMonth(0);
-            beginningOfYear.setDate(1);
-            beginningOfYear.setHours(0);
-            beginningOfYear.setMinutes(0);
-
-            document.getElementById('profile').innerHTML = `
-            <img src="${athlete.profile}">
-            <h2>${athlete.firstname} ${athlete.lastname} <span>${athlete.city}, ${athlete.state}</span></h2>
-        `;
-
-            request('GET', 'https://www.strava.com/api/v3/activities?page=1&per_page=200', {}, {'Authorization': `Bearer ${localStorage.getItem('strava-auth')}`})
-                .then(response => {
-
-                    response.forEach(activity => {
-
-                        if (!!activity.commute && new Date(activity.start_date_local) >= beginningOfYear) {
-
-                            calories += activity.kilojoules;
-                            distance += activity.distance;
-                        }
-                    });
-
-                    if (response.length && new Date(response[response.length - 1].start_date_local) > beginningOfYear) {
-
-                        return request('GET', 'https://www.strava.com/api/v3/activities?page=2&per_page=200', {}, {'Authorization': `Bearer ${localStorage.getItem('strava-auth')}`})
-                            .then(response => {
-
-                                response.forEach(activity => {
-
-                                    if (!!activity.commute && new Date(activity.start_date_local) >= beginningOfYear) {
-
-                                        calories += activity.kilojoules;
-                                        distance += activity.distance;
-                                    }
-                                });
-                            });
-                    }
-
-                    return Promise.resolve();
-
-                })
-                .then(() => {
-
-                    distance = distance * 0.00062137;
-
-                    document.getElementById('distance').innerHTML = `${(distance).toFixed(2)}miles`;
-                    document.getElementById('co2').innerHTML      = `${(distance * 0.28485).toFixed(2)}kg`;
-                    document.getElementById('calories').innerHTML = `${calories}kj`;
-
-                });
-
-
-            function request(method, url, body, headers) {
-
-                body    = !!body ? body : {};
-                headers = !!headers ? headers : {};
-
-                return new Promise((resolve, reject) => {
-
-                    let xhr = new XMLHttpRequest();
-                    xhr.open(method, url, true);
-                    xhr.setRequestHeader('Content-Type', 'application/json');
-
-                    Object.keys(headers).forEach(header => xhr.setRequestHeader(header, headers[header]));
-                    xhr.send(JSON.stringify(body));
-
-                    xhr.onreadystatechange = processRequest;
-
-                    function processRequest(e) {
-
-                        if (xhr.readyState === 4) {
-                            let response = JSON.parse(xhr.responseText);
-
-                            xhr.status === 200 ? resolve(response) : reject(xhr.status);
-
-                        }
-                    }
-                });
-            }
-        }
-
-    })();
-</script>
 </div>
         </div>
     </div>

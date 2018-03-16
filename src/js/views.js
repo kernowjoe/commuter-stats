@@ -1,26 +1,27 @@
 (function (window, history) {
 
     'use strict';
-    var env = new nunjucks.Environment();
-    var duration = 300;
+    let env      = new nunjucks.Environment();
+    let duration = 300;
 
-    (function () {
+    window.loadPage = loadPage;
+    document.addEventListener("DOMContentLoaded", function () {
         // Bind event listeners when the DOM is ready
         addEventHandlers();
         // Add scroll effects
         scrollTo(0, duration);
 
         animate()
-    })();
+    });
 
     // create event handlers
     function addEventHandlers() {
         // hijack links which are root relative
-        var anchors = document.getElementsByTagName('a');
+        let anchors = document.getElementsByTagName('a');
 
-        for (var i = 0; i < anchors.length; i++) {
+        for (let i = 0; i < anchors.length; i++) {
 
-            if(anchors[i].className.split(' ').indexOf('external') === -1) {
+            if (anchors[i].className.split(' ').indexOf('external') === -1) {
 
                 anchors[i].removeEventListener('click', clickEvent);
                 anchors[i].addEventListener('click', clickEvent);
@@ -30,38 +31,44 @@
         // perform client-side content render for browser history navigation
         window.onpopstate = function (e) {
 
-            var path = !!e.state ? e.state.path : document.location.pathname;
+            let path = !!e.state ? e.state.path : document.location.pathname;
 
             path = path[path.length - 1] === '/' && path.length > 1 ? path.substring(0, path.length - 1) : path;
 
-            loadPage(path);
+            new Promise.resolve()
+                .then(() => setAddress({path: path}))
+                .then(() => loadPage(path))
+            ;
 
         };
 
         closeTheMobileMenu();
 
+        console.log('aadd event handlers')
+
+        return Promise.resolve();
+
     }
 
     function clickEvent(e) {
 
-        var path = this.getAttribute('href');
+        let path = this.getAttribute('href');
 
         e.preventDefault();
-        setAddress({path: path});
         loadPage(path);
 
     }
 
-	/**
-	 * a daft way to close a menu, but I am lazy to rewrite...
-	 */
-	function closeTheMobileMenu() {
+    /**
+     * a daft way to close a menu, but I am lazy to rewrite...
+     */
+    function closeTheMobileMenu() {
 
-		var toggleButton = $('.navbar-toggle');
+        let toggleButton = $('.navbar-toggle');
 
-		!toggleButton.hasClass('collapsed') && toggleButton.trigger('click');
+        !toggleButton.hasClass('collapsed') && toggleButton.trigger('click');
 
-	}
+    }
 
     // get data for the page from the API
     // set the address in the browser history
@@ -69,18 +76,18 @@
     function loadPage(path) {
         // fire analytics
 
-        var view = window.views[path];
+        let view = window.views[path];
 
         view.path = path;
 
         (typeof ga !== 'undefined') && ga('send', 'pageview', path);
 
-        Promise.resolve()
-            .then(function() { return render({path: path, body: view.template}, view.template, view)} )
-            .then(animate)
-            .then(description)
-            .then(title)
-            .then(addEventHandlers);
+        return Promise.resolve()
+               .then(() => render({path: path, body: view.template}, view.template, view))
+               .then(animate)
+               .then(description)
+               .then(title)
+               .then(addEventHandlers);
 
     }
 
@@ -88,7 +95,7 @@
 
         return new Promise(function (resolve) {
 
-            var title = 'Maintain - ' + view.title
+            let title = 'Maintain - ' + view.title
 
             document.title = title;
 
@@ -103,8 +110,8 @@
         return new Promise(function (resolve) {
 
             $('.animated').each(function () {
-                var elem = $(this);
-                var animation = elem.data('animation');
+                let elem      = $(this);
+                let animation = elem.data('animation');
 
                 setTimeout(function () {
                     elem.addClass(animation + " visible");
@@ -112,12 +119,12 @@
 
             });
 
-            var menuItems = document.getElementById('main-nav').getElementsByTagName('a');
+            let menuItems = document.getElementById('main-nav').getElementsByTagName('a');
 
-            for (var i = 0; i < menuItems.length; ++i) {
-                var item = menuItems[i];
+            for (let i = 0; i < menuItems.length; ++i) {
+                let item = menuItems[i];
 
-                var path = !!view ? view.path : window.location.pathname;
+                let path = !!view ? view.path : window.location.pathname;
 
                 path !== '/' && path.endsWith('/') && (path = path.slice(0, -1));
 
@@ -132,9 +139,9 @@
 
         return new Promise(function (resolve) {
 
-            var meta = document.getElementsByTagName("meta");
+            let meta = document.getElementsByTagName("meta");
 
-            for (var i = 0; i < meta.length; i++) {
+            for (let i = 0; i < meta.length; i++) {
                 if (meta[i].name.toLowerCase() == "description") {
                     meta[i].content = view.description;
                 }
@@ -161,7 +168,7 @@
     function setAddress(view) {
 
         return new Promise(function (resolve) {
-            var stateObject = {
+            let stateObject = {
                 path: view.path
             };
             history.pushState(stateObject, null, view.path);
@@ -175,8 +182,8 @@
         if (duration <= 0) {
             return;
         }
-        var difference = to - document.body.scrollTop;
-        var perTick = difference / duration * 10;
+        let difference = to - document.body.scrollTop;
+        let perTick    = difference / duration * 10;
 
         setTimeout(
             function () {
