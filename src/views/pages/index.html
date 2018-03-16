@@ -1,0 +1,64 @@
+<div class="container animated" data-animation="fadeInRight" data-animation-delay="1000">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="section-header">
+                <h2 class="section-title">Register with maintain</h2><!-- END TITLE -->
+                <div class="line-separate line-white line-center 1000"><span></span></div>
+            </div>
+            <div class="slide-content">
+                <p class="color-white onstart">
+                    Powered by Strava to track your gear's usage
+                </p>
+                <a href="" id="register" class="external border-button go-slide onstart">Connect with STRAVA</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+
+    (() => {
+
+        let location = window.location;
+
+        !!location.search ? getCredentials() : setUrl();
+
+        function getCredentials() {
+
+            var pairs = location.search.substring(1).split("&"),
+                obj = {},
+                pair;
+
+            for ( var i in pairs ) {
+                if ( pairs[i] === "" ) continue;
+
+                pair = pairs[i].split("=");
+                !!pair[1] && (obj[ decodeURIComponent( pair[0] ) ] = decodeURIComponent( pair[1] ));
+            }
+            console.log('get credentials : ', obj.code);
+
+        }
+
+        function setUrl() {
+
+            let authUrl = 'https://www.strava.com/oauth/authorize?';
+
+            let parts = {
+                approval_prompt: 'force',
+                client_id: '14427',
+                redirect_uri: 'http://localhost:8000/auth',
+                response_type: 'code',
+                scope: 'view_private',
+            };
+
+            console.log(parts);
+
+            Object.keys(parts).forEach(part => authUrl += `${part}=${parts[part]}&`);
+
+            authUrl = encodeURI(authUrl.replace(/\&$/, ''));
+
+            document.getElementById('register').href = authUrl;
+        }
+    })();
+</script>

@@ -1,0 +1,43 @@
+{
+  "name": "maintain",
+  "description": "maintain static JAMstack site",
+  "scripts": {
+    "development": "gulp development",
+    "build": "gulp build --env=production",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:kernowjoe/maintain.git"
+  },
+  "author": "Joe Prisk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kernowjoe/maintain/issues"
+  },
+  "homepage": "https://github.com/kernowjoe/maintain",
+  "devDependencies": {
+    "font-awesome": "^4.7.0",
+    "front-matter": "^2.1.0",
+    "gulp": "3.9.*",
+    "gulp-clean": "*",
+    "gulp-concat": "*",
+    "gulp-data": "*",
+    "gulp-imagemin": "^3.2.0",
+    "gulp-inject": "*",
+    "gulp-nunjucks": "*",
+    "gulp-pretty-url": "*",
+    "gulp-rename": "*",
+    "gulp-sass": "*",
+    "gulp-sequence": "*",
+    "gulp-uglify": "*",
+    "gulp-webserver": "*",
+    "js-yaml": "^3.8.2",
+    "mkdirp": "^0.5.1",
+    "nunjucks": "^2.4.2",
+    "run-sequence": "^1.2.2",
+    "showdown": "^1.6.4",
+    "slugify": "^1.1.0"
+  },
+  "dependencies": {}
+}

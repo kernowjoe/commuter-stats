@@ -1,0 +1,28 @@
+PATHS:
+  dist: 'dist'
+  configs:
+    - 'src/static/_redirects'
+    - 'src/static/manifest.json'
+    - 'src/static/browserconfig.xml'
+    - 'src/static/manifest.json'
+  assets:
+    - 'node_modules/font-awesome/fonts/**/*'
+    - 'src/assets/**/*'
+  sass:
+    src:
+      - 'src/sass/**/*'
+    includes:
+      - 'node_modules/font-awesome/scss/'
+      - 'node_modules/foundation-sites/scss/'
+  js:
+    - 'src/js/lib/nunjucks-slim.min.js'
+    - 'src/js/jquery.min.js'
+    - 'src/js/bootstrap.min.js'
+    - 'src/js/views.js'
+    - 'src/js/configs.js'
+  html: 'src/views/**/*.html'
+  templates:
+    - 'src/views/pages/**/*.html'
+  views: 'src/views/'
+GOOGLE:
+  maps-api: 'AIzaSyAyiFLHCyybATnbMtinbY2S-vvwL_jBniw'
