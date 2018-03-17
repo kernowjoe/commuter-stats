@@ -1,1 +1,1 @@
-window.views = {"/app":{"title":"Carbon Strava","description":"love riding your bike","template":"app"},"/":{"title":"CarbonStrava","description":"carbon strava","template":"index"}};
+window.views = {"/app":{"title":"Commuter stats","description":"love riding your bike","template":"app"},"/":{"title":"Commuter stats","description":"love riding your bike","template":"index"}};

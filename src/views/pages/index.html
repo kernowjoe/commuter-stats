@@ -67,7 +67,6 @@
                     localStorage.setItem('strava-auth', response.access_token);
                     localStorage.setItem('strava-profile', JSON.stringify(response.athlete));
 
-                    history.pushState({path: '/'}, null, '/');
                     showApp();
 
                 }
@@ -78,6 +77,7 @@
         function showApp() {
 
             Promise.resolve()
+                .then(() => window.setAddress({path: '/'}))
                 .then(() => window.loadPage('/app'))
                 .then(() => app());
         }
