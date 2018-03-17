@@ -38,33 +38,39 @@
     font-weight: 900;
   }
 }
+.definitions {
 
-dl {
-  display: flex;
+  display:flex;
   flex-wrap: wrap;
-  flex-direction: column;
+
+  article {
+
+    width: 100%;
+
+    i {
+      margin:1rem auto;
+      color:#6f6f6f;
+    }
+    h2 {
+      font-size: 1em;
+      color: #8f8f8f;
+    }
+    h3 {
+      font-size:2.5em;
+      font-weight:900;
+      padding-bottom:0.5em;
+    }
+  }
 }
 
-dd, dt {
-  flex-basis: 50%;
-  box-sizing: border-box;
-}
-
-dt {
-  color: #8f8f8f;
-}
-dd {
-  font-size:1.2em;
-  padding-bottom:0.5em;
-}
 
 @media (min-width: 768px) {
-  dl {
-    height: 5em;
-  }
-  dd {
-    //padding-bottom:0.5em;
-    border-bottom:0;
+  .definitions {
+
+    article {
+
+      width: 50%;
+    }
   }
 
 }
