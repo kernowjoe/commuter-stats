@@ -146,7 +146,7 @@
 
             function loadActivities(page) {
 
-                if(window.location.protocol === 'http:') {
+                if(window.location.origin.indexOf('localhost') !== -1) {
 
                     distance = 222.71 / 0.00062137;
                     calories = 28879.56;
