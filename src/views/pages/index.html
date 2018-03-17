@@ -2,12 +2,12 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="section-header">
-                <h2 class="section-title">Register with CarbonStrava</h2><!-- END TITLE -->
+                <h2 class="section-title">Register with Carbon commute stats</h2><!-- END TITLE -->
                 <div class="line-separate line-white line-center 1000"><span></span></div>
             </div>
             <div class="slide-content">
                 <p class="color-white onstart">
-                    Powered by Strava to track your gear's usage
+                    Powered by Strava to track your commutes and carbon offset
                 </p>
                 <a href="" id="register" class="external border-button go-slide onstart">Connect with STRAVA</a>
             </div>
@@ -67,11 +67,11 @@
 
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     let response = JSON.parse(xhr.responseText);
-                    console.log(response);
 
                     localStorage.setItem('strava-auth', response.access_token);
                     localStorage.setItem('strava-profile', JSON.stringify(response.athlete));
 
+                    window.location.replace('/');
                     showApp();
 
                 }
@@ -107,8 +107,6 @@
 
         function app() {
 
-            console.log('run the app...')
-
             let athlete = JSON.parse(localStorage.getItem('strava-profile'));
 
             let calories = 0,
@@ -119,8 +117,6 @@
 
             beginningOfYear.setFullYear(beginningOfYear.getFullYear(), 0, 1);
             beginningOfYear.setHours(0, 0, 0);
-
-            console.log(beginningOfYear);
 
             document.getElementById('profile').innerHTML = `
             <img src="${athlete.profile}">
