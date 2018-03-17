@@ -3,7 +3,12 @@
   img {
 
     border-radius:50%;
-    border:1px solid #000
+    border:1px solid #616161;
+
+    &.tree {
+
+      padding: 2em 0;
+    }
   }
   h2 {
 
@@ -42,6 +47,7 @@ dl {
 
 dd, dt {
   flex-basis: 50%;
+  box-sizing: border-box;
 }
 
 dt {
@@ -50,7 +56,6 @@ dt {
 dd {
   font-size:1.2em;
   padding-bottom:0.5em;
-  border-bottom:1px solid #8f8f8f;
 }
 
 @media (min-width: 768px) {

@@ -41,11 +41,6 @@ table {
   border-spacing: 0;
 }
 
-
-/* ==================================================================
-	2.0 Bootstrap fix for WinPhone 8 and IE10
-================================================================== */
-
 @-webkit-viewport   { width: device-width; }
 @-moz-viewport      { width: device-width; }
 @-ms-viewport       { width: device-width; }
@@ -58,19 +53,29 @@ table {
 ================================================================== */
 
 body {
-  padding:2em;
-  //line-height: 1;
+  padding:0 0 2em 0;
   color: $font-colour;
   font-size: 16px;
   font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-style: normal;
   font-weight: normal;
-  line-height: 28px;
+  line-height: 1.5em;
   -webkit-font-smoothing: antialiased;
   -webkit-text-size-adjust: 100%;
   white-space: normal;
 }
 
+nav {
+  border-bottom: 1px solid #616161;
+  margin-bottom: 1em;
+
+  h1 {
+
+    text-align: center;
+    font-size: 2.5em;
+    color: #6f6f6f;
+  }
+}
 /* ==================================================================
 	4.0 Typography
 ================================================================== */
@@ -141,16 +146,6 @@ section {
   text-align: center;
 }
 
-.center {
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-}
-
-.clear {
-  clear: both;
-}
-
 .csstransitions .animated,
 .animated {
   visibility: hidden;
@@ -164,30 +159,41 @@ section {
 	19.0 Responsive
 ================================================================== */
 
-@media (min-width: 1200px) {
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  max-width:100%;
+}
+@media (min-width: 768px) {
+
+  body {
+
+    padding:0 2em 2em;
+
+    h1 {
+      text-align:left;
+    }
+  }
+
   .container {
     width: 1170px;
   }
 }
 
-@media (max-width: 768px){
-  .container {
-    width: 100%;
-  }
-}
-
-@media(max-width:991px){
-
-  h1 {
-    font-size: 50px;
-  }
-
-  h2 {
-    font-size: 44px;
-  }
-
-  h3 {
-    font-size: 26px;
-  }
-
-}
+//@media(max-width:991px){
+//
+//  h1 {
+//    font-size: 50px;
+//  }
+//
+//  h2 {
+//    font-size: 44px;
+//  }
+//
+//  h3 {
+//    font-size: 26px;
+//  }
+//
+//}

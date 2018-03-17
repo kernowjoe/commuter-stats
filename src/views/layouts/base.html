@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <title>CarbonStrava - {{ title }}</title>
+    <title>commuter stats - {{ title }}</title>
 
     <!-- META DATA -->
 
@@ -23,31 +23,16 @@
         -->
     </style>
 
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-    <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-    <script src="js/respond.min.js"></script>
-    <![endif]-->
-
-    <!--[if lt IE 11]>
-    <link rel="stylesheet" type="text/css" href="css/ie.css">
-    <![endif]-->
-
-    <!-- JS -->
-
-    <!-- FAVICONS -->
-
     <!-- description and share tags -->
     <meta name="description" content="{{ description }}">
 
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Carbon Strava">
-    <meta property="og:url" content="https://www.carbon-strava.com{{ url }}">
-    <meta property="og:site_name" content="Carbon Strava">
+    <meta property="og:title" content="commuter stats">
+    <meta property="og:url" content="https://commuter-stats.netlify.com{{ url }}">
+    <meta property="og:site_name" content="commuter stats">
     <meta property="og:description" content="{{ description }}">
     <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="carbonStrava">
+    <meta name="twitter:title" content="commuter stats">
     <meta name="twitter:description" content="{{ description }}">
 </head>
 <body class="csstransitions">
@@ -68,29 +53,23 @@
     //     m.parentNode.insertBefore(a, m)
     // })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
     //
-    // ga('create', 'UA-107148225-1', 'auto');
+    // ga('create', 'UA-xxxxxxxxx-x', 'auto');
     // ga('send', 'pageview');
 
 </script>
 
 {% include "layouts/elements/header.html" %}
+
 <!-- General Section -->
-<section class="home section fullscreen site-main">
-    <div class="section-container">
-        <div class="page-container">
-            <div id="mainContent">
+    <section id="mainContent">
 
-                {% block content -%}{% endblock -%}
+        {% block content -%}{% endblock -%}
 
-            </div>
-        </div>
-    </div>
 </section>
 
 {% include "layouts/elements/footer.html" %}
 
 <!-- JS -->
-
 
 
 </body>

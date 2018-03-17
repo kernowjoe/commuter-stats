@@ -1,19 +1,16 @@
-<div class="container animated" data-animation="fadeInRight" data-animation-delay="1000">
-    <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <div class="section-header">
-                <h2 class="section-title">Register with Carbon commute stats</h2><!-- END TITLE -->
-                <div class="line-separate line-white line-center 1000"><span></span></div>
-            </div>
-            <div class="slide-content">
-                <p class="color-white onstart">
-                    Powered by Strava to track your commutes and carbon offset
-                </p>
-                <a href="" id="register" class="external border-button go-slide onstart">Connect with STRAVA</a>
-            </div>
+<div class="animated">
+    <div id="profile">
 
-        </div>
+        <img class="tree" src="/assets/tree.png">
+        <h2 class="section-title">Commuter stats</h2><!-- END TITLE -->
     </div>
+    <div class="slide-content">
+        <p class="color-white onstart">
+            Powered by Strava to track your commutes and carbon offset
+        </p>
+        <a href="" id="register" class=""><img src="/assets/connect-with-strava.png"></a>
+    </div>
+
 </div>
 
 <script>
@@ -21,7 +18,6 @@
     (() => {
 
         let location = window.location;
-
 
         hasAuth();
 
@@ -71,7 +67,7 @@
                     localStorage.setItem('strava-auth', response.access_token);
                     localStorage.setItem('strava-profile', JSON.stringify(response.athlete));
 
-                    window.location.replace('/');
+                    history.pushState({path: '/'}, null, '/');
                     showApp();
 
                 }
@@ -130,13 +126,13 @@
 
             function displayStats() {
 
-                    distance = distance * 0.00062137;
-                    co2 = distance * 0.28485;
+                distance = distance * 0.00062137;
+                co2 = distance * 0.28485;
 
-                    document.getElementById('distance').innerHTML = `${(distance).toFixed(2)} miles`;
-                    document.getElementById('co2').innerHTML = `${(co2).toFixed(2)} kg`;
-                    document.getElementById('calories').innerHTML = `${(calories * 1.11484317115).toFixed(2)} calories`;
-                    document.getElementById('trees').innerHTML = `${(co2 * 0.005511556554622).toFixed(2)} trees`;
+                document.getElementById('distance').innerHTML = `${(distance).toFixed(2)} miles`;
+                document.getElementById('co2').innerHTML = `${(co2).toFixed(2)} kg`;
+                document.getElementById('calories').innerHTML = `${(calories * 1.11484317115).toFixed(2)} calories`;
+                document.getElementById('trees').innerHTML = `${(co2 * 0.005511556554622).toFixed(2)} trees`;
 
             }
 
