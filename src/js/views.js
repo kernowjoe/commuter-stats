@@ -7,7 +7,7 @@
     window.loadPage = loadPage;
     document.addEventListener("DOMContentLoaded", function () {
         // Bind event listeners when the DOM is ready
-        addEventHandlers();
+        //addEventHandlers();
         // Add scroll effects
         scrollTo(0, duration);
 
@@ -86,8 +86,8 @@
                .then(() => render({path: path, body: view.template}, view.template, view))
                .then(animate)
                .then(description)
-               .then(title)
-               .then(addEventHandlers);
+               .then(title);
+               // .then(addEventHandlers);
 
     }
 
@@ -95,11 +95,11 @@
 
         return new Promise(function (resolve) {
 
-            let title = 'Maintain - ' + view.title
+            let title = 'CarbonStrava - ' + view.title
 
             document.title = title;
 
-            document.getElementsByTagName('h1')[0].innerHTML = title;
+            //document.getElementsByTagName('h1')[0].innerHTML = title;
 
             resolve(view);
         });
@@ -118,18 +118,18 @@
                 }, duration);
 
             });
-
-            let menuItems = document.getElementById('main-nav').getElementsByTagName('a');
-
-            for (let i = 0; i < menuItems.length; ++i) {
-                let item = menuItems[i];
-
-                let path = !!view ? view.path : window.location.pathname;
-
-                path !== '/' && path.endsWith('/') && (path = path.slice(0, -1));
-
-                item.getAttribute("href") === path ? item.classList.add('active') : item.classList.remove('active');
-            }
+            //
+            // let menuItems = document.getElementById('main-nav').getElementsByTagName('a');
+            //
+            // for (let i = 0; i < menuItems.length; ++i) {
+            //     let item = menuItems[i];
+            //
+            //     let path = !!view ? view.path : window.location.pathname;
+            //
+            //     path !== '/' && path.endsWith('/') && (path = path.slice(0, -1));
+            //
+            //     item.getAttribute("href") === path ? item.classList.add('active') : item.classList.remove('active');
+            // }
 
             resolve(view);
         })

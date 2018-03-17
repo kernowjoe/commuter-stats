@@ -22,13 +22,22 @@
   margin-top:2em;
   border-bottom: 1px solid #ccc;
   vertical-align: auto;
+  position: relative;
+
+  #trees {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+    color: green;
+    font-weight: 900;
+  }
 }
 
 dl {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  height: 5em;
 }
 
 dd, dt {
@@ -40,4 +49,17 @@ dt {
 }
 dd {
   font-size:1.2em;
+  padding-bottom:0.5em;
+  border-bottom:1px solid #8f8f8f;
+}
+
+@media (min-width: 768px) {
+  dl {
+    height: 5em;
+  }
+  dd {
+    //padding-bottom:0.5em;
+    border-bottom:0;
+  }
+
 }
