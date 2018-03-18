@@ -43,7 +43,7 @@ let tasks = {
     /**
      * Will watch and execute tasks when files changed in these folders
      */
-    gulp.watch( PATHS.html,     ['build-compile', 'build-templates']);
+    gulp.watch( PATHS.html,     ['build-compile']);
     gulp.watch( PATHS.js,       ['build-scripts']);
     gulp.watch( PATHS.sass.src, ['development-rebuild-style']);
     gulp.watch( PATHS.assets,   ['build-assets']);

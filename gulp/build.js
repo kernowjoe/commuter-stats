@@ -78,7 +78,6 @@ let tasks = {
             'build-stylesheets',
             'build-assets',
             'build-compile',
-            'build-templates',
             done
         );
 
@@ -124,20 +123,7 @@ let tasks = {
 
                                content.attributes.baseTemplate = "./layouts/base.html";
                                content.attributes.url          = name;
-                               // build a configs object for use as a reference in the client
-                               // !!content.attributes.api && (content.attributes.apiData = api[content.attributes.api]);
-                               // !content.attributes.headerImage && (content.attributes.headerImage = 'home-page.png');
 
-                               confs.views[name] = {
-                                   "title":       content.attributes.title,
-                                   "description": content.attributes.description,
-                                   "template":    content.attributes.body,
-                                   "headerImage": content.attributes.headerImage
-                               };
-                               fs.writeFileSync(
-                                   'src/js/configs.js',
-                                   "window.views = " + JSON.stringify(confs.views) + ";"
-                               );
                                return content.attributes;
                            }
                        )
@@ -155,28 +141,7 @@ let tasks = {
                            }
                        )
                    )
-                   // .pipe(
-                   //     inject(
-                   //         gulp.src(['./api/api.json']), {
-                   //             starttag:   '<!-- inject:js -->',
-                   //             removeTags: true,
-                   //             transform:  function (filePath, file) {
-                   //                 return 'api = ' + file.contents.toString('utf8');
-                   //             }
-                   //         }
-                   //     )
-                   // )
                    .pipe(gulp.dest('dist'));
-    },
-
-    'build-templates': () => {
-
-        return gulp.src(PATHS.templates)
-                   .pipe(nunjucks.precompile({env: env}))
-                   .pipe(concat('templates.js'))
-                   .pipe(uglify())
-                   .pipe(gulp.dest(PATHS.dist + '/assets/js'));
-
     },
 
     /**
@@ -193,7 +158,7 @@ let tasks = {
             .src(
                 PATHS.js
             )
-            .pipe(concat('maintain.js'))
+            .pipe(concat('commuter-stats.js'))
             .pipe(uglify())
             .pipe(gulp.dest('dist/assets/js'));
     },

@@ -1,15 +1,12 @@
-# Maintain Bikes
+# commuter stats front end
 
-The front end to a simple strava app to measure users bike parts.
+The front end to a simple strava app to measure commuter stats.
 
-View the site [www.maintain.com](https://www.maintain.com)
+View the site [commuter-stats.netlify.com](https://commuter-stats.netlify.com)
 
 # Tooling
 
-This site is built on JAMStack, using node packages to pre build static served hmtl/js content
-
-* gulp
-* nunjucks (pre compile templates for fast loading)
+This site is built on JAMStack, and features no routing just pure simple js
 
 The site is hosted with [www.netlify.com](https://www.netlify.com) on their free service, making use of their amazing build pipelines that make a site like this so simple to build/deploy.
 

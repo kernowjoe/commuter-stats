@@ -1,63 +1,50 @@
 (function (window, history) {
 
     'use strict';
-    let env      = new nunjucks.Environment();
-    let duration = 300;
+    const duration = 300;
 
-    window.loadPage   = loadPage;
-    window.setAddress = setAddress;
-
-    document.addEventListener("DOMContentLoaded", function () {
-        // Bind event listeners when the DOM is ready
-        //addEventHandlers();
-        // Add scroll effects
-        scrollTo(0, duration);
-
-        animate()
-    });
+    window.render = {
+        load : loadPage,
+        setUrl: setAddress
+    };
 
     // get data for the page from the API
     // set the address in the browser history
     // render the page
-    function loadPage(path) {
+    function loadPage(path, data) {
         // fire analytics
 
-        let view = window.views[path];
-
-        view.path = path;
-
-        (typeof ga !== 'undefined') && ga('send', 'pageview', path);
+        (typeof gtag !== 'undefined') && gtag('send', 'pageview', path);
 
         return Promise.resolve()
-               .then(() => render({path: path, body: view.template}, view.template, view))
+               .then(() => render(path, data))
                .then(view => animate(view))
-               .then(title);
+               // .then(title);
                // .then(addEventHandlers);
 
     }
 
-    function title(view) {
-
-        return new Promise(function (resolve) {
-
-            document.title = `Commuter stats - ${view.title}`;
-
-            resolve(view);
-        });
-    }
+    // function title(view) {
+    //
+    //     return new Promise(function (resolve) {
+    //
+    //         document.title = `Commuter stats - ${view.title}`;
+    //
+    //         resolve(view);
+    //     });
+    // }
 
     function animate(view) {
 
         return new Promise(function (resolve) {
 
-            $('.animated').each(function () {
-                let elem      = $(this);
-                let animation = elem.data('animation');
+            document.querySelectorAll('.animated').forEach(element => {
 
-                setTimeout(function () {
-                    elem.addClass(animation + " visible");
-                }, duration);
-
+                setTimeout(() => {
+                    element.classList.add(`visible`);
+                    element.classList.add(`fadeInRight`);
+                }, duration
+                );
             });
 
             resolve(view);
@@ -65,33 +52,32 @@
     }
 
     // apply the template and insert it into the page
-    function render(data, template, view) {
+    function render(path, data) {
 
         return new Promise(function (resolve) {
-            template += ".html";
 
-            document.getElementById('mainContent').innerHTML = env.render(template, data);
+            document.getElementById('mainContent').innerHTML = window.templates[path](data);
             scrollTo(0, duration);
 
-            resolve(view);
+            resolve();
         });
     }
 
     /**
      * manage the browser history
      *
-     * @param view {Object<{path: string}>}
+     * @param path string
      * @returns {Promise<any>}
      */
-    function setAddress(view) {
+    function setAddress(path) {
 
         return new Promise(function (resolve) {
             let stateObject = {
-                path: view.path
+                path: path
             };
-            history.pushState(stateObject, null, view.path);
+            history.pushState(stateObject, null, path);
 
-            resolve(view);
+            resolve();
         })
     }
 

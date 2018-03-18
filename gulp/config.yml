@@ -15,11 +15,9 @@ PATHS:
       - 'node_modules/font-awesome/scss/'
       - 'node_modules/foundation-sites/scss/'
   js:
-    - 'src/js/lib/nunjucks-slim.min.js'
-    - 'src/js/jquery.min.js'
-    - 'src/js/bootstrap.min.js'
+    - 'src/js/templates.js'
+    - 'src/js/app.js'
     - 'src/js/views.js'
-    - 'src/js/configs.js'
   html: 'src/views/**/*.html'
   templates:
     - 'src/views/pages/**/*.html'

@@ -1,1 +1,0 @@
-window.views = {"/app":{"title":"Commuter stats","description":"love riding your bike","template":"app"},"/":{"title":"Commuter stats","description":"love riding your bike","template":"index"}};
