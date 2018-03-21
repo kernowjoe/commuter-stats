@@ -111,7 +111,7 @@
             document.getElementById('distance').innerHTML = `${(distance).toFixed(2)} miles`;
             document.getElementById('co2').innerHTML      = `${(co2).toFixed(2)} kg`;
             document.getElementById('calories').innerHTML = `${(calories * 1.11484317115).toFixed(2)} calories`;
-            document.getElementById('trees').innerHTML    = `equivalent to planting <br>${(co2 * 0.005511556554622).toFixed(2)} trees`;
+            document.getElementById('trees').innerHTML    = `Equivalent to planting <br>${(co2 * 0.005511556554622).toFixed(2)} trees`;
             document.getElementById('cost').innerHTML     = `&pound;${(fuelCost / 100).toFixed(2)}`;
 
         }
