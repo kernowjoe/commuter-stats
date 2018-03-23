@@ -25,6 +25,17 @@ class stats {
         this.beginningOfYear.setHours(0, 0, 0);
     }
 
+    /**
+     * Ability to set the mpg of a car
+     * Ability to set fuel type of car
+     *      Work out cost/co2/trees equivalent
+     *
+     * Ability to set start and end dates to track
+     * Ability to set cost per litre of fuel
+     *
+     * @param costPerLitre
+     * @param carSize
+     */
     settings({costPerLitre, carSize}) {
 
         const carSizes = {
@@ -69,12 +80,18 @@ class stats {
     displayStats() {
 
         let fuelCost,
-            costPerGallon = this.costPerLitre * 4.54609;
+            mpg            = 35,
+            litresInGallon = 4.54609,
+            costPerGallon  = this.costPerLitre * litresInGallon;
 
         this.distance = this.distance * 0.00062137;
         this.co2      = this.distance * this.co2Conversion;
 
-        fuelCost = (this.distance / 35) * costPerGallon;
+        this.co2 = ((this.distance / mpg) * litresInGallon) * 2.57842605805682;
+
+        //console.log('co2 based on mpg', thing.toFixed(2));
+
+        fuelCost = (this.distance / mpg) * costPerGallon;
 
         document.getElementById('distance').innerHTML = `${(this.distance).toFixed(2)} miles`;
         document.getElementById('co2').innerHTML      = `${(this.co2).toFixed(2)} kg`;
