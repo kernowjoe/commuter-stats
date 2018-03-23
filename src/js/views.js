@@ -1,4 +1,4 @@
-import * as templates from './templates';
+import {templates} from './templates';
 
 export {
     load,

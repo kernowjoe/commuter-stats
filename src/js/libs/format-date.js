@@ -1,6 +1,6 @@
-export {formatDate}
+export {date}
 
-function formatDate(date) {
+function date(date) {
     let monthNames = [
         "January", "February", "March",
         "April", "May", "June", "July",

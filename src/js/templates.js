@@ -1,13 +1,14 @@
 'use strict';
 
 export {
-   welcome,
-   app
+   templates
 };
 
-function welcome(data) {
+class templates {
 
-    return `<div class="animated">
+    static welcome(data) {
+
+        return `<div class="animated">
     <section id="profile">
 
         <img class="tree" src="/assets/tree.png">
@@ -19,11 +20,11 @@ function welcome(data) {
     </section>
 
 </div>`;
-}
+    }
 
-function app(data) {
+    static app(data) {
 
-    return `<div class="container animated">
+        return `<div class="container animated">
 
     <div id="profile">
 
@@ -57,4 +58,5 @@ function app(data) {
     <div id="trees"></div>
     <img src="/assets/tree.png">
 </section>`;
+    }
 }

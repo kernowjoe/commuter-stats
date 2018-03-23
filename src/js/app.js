@@ -1,6 +1,7 @@
 import * as render from './views';
 import {stats} from "./stats";
 import * as fontawesome from './font-awesome';
+import * as https from './libs/https-forward';
 import style from '../sass/base.scss'
 
 (() => {
@@ -20,12 +21,7 @@ import style from '../sass/base.scss'
     function hasAuth() {
 
         fontawesome.load();
-
-        // document.getElementById('refresh').onclick = () => {
-        //     console.log('clicked ...');
-        //
-        //     Stats.refreshStats();
-        // };
+        https.forward();
 
         const auth = localStorage.getItem(storage.auth);
 

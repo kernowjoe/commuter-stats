@@ -1,4 +1,4 @@
-import {formatDate} from "./libs/formateDate";
+import * as format from "./libs/format-date";
 import {request} from "./libs/request";
 
 export {stats}
@@ -43,7 +43,7 @@ class stats {
         document.getElementById('profile').innerHTML = `
             <img src="${this.athlete.profile}">
             <h2>${this.athlete.firstname} ${this.athlete.lastname} <span>${this.athlete.city}, ${this.athlete.state}</span></h2>
-            <p>These stats are for the current year starting ${formatDate(this.beginningOfYear)}.</p>
+            <p>These stats are for the current year starting ${format.date(this.beginningOfYear)}.</p>
         `;
 
         return Promise.resolve();
