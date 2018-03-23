@@ -1,5 +1,5 @@
 import * as format from "./libs/format-date";
-import {request} from "./libs/request";
+import {request}   from "./libs/request";
 
 export {stats}
 
@@ -7,9 +7,10 @@ class stats {
 
     constructor(storage) {
 
-        this.storage = storage;
-
+        this.storage    = storage;
         this.activities = [];
+
+        this.settings({costPerLitre: 123.9, carSize: 'average'});
     }
 
     setup() {
@@ -24,12 +25,24 @@ class stats {
         this.beginningOfYear.setHours(0, 0, 0);
     }
 
+    settings({costPerLitre, carSize}) {
+
+        const carSizes = {
+            small:   0.23107,
+            medium:  0.2767,
+            large:   0.34837,
+            average: 0.28485,
+        };
+
+        this.costPerLitre  = costPerLitre;
+        this.co2Conversion = carSizes[carSize];
+    }
+
     reset() {
 
-        this.costPerLitre = 123.9;
-        this.calories     = 0;
-        this.co2          = 0;
-        this.distance     = 0;
+        this.calories = 0;
+        this.co2      = 0;
+        this.distance = 0;
 
         ['distance', 'co2', 'calories', 'trees', 'cost',].map(id => {
             document.getElementById(id).innerHTML = `<i class="fa fa-spin fa-spinner"></i>`
@@ -38,7 +51,11 @@ class stats {
 
     profile() {
 
-        //document.getElementById('refresh').innerHTML = `<i class="fa fa-5x fa-cog"></i>`;
+        let i = document.createElement('i');
+
+        i.classList.add('fa', 'fa-fw', 'fa-cog');
+
+        document.getElementById('title').appendChild(i);
 
         document.getElementById('profile').innerHTML = `
             <img src="${this.athlete.profile}">
@@ -51,13 +68,11 @@ class stats {
 
     displayStats() {
 
-
         let fuelCost,
-
             costPerGallon = this.costPerLitre * 4.54609;
 
         this.distance = this.distance * 0.00062137;
-        this.co2      = this.distance * 0.28485;
+        this.co2      = this.distance * this.co2Conversion;
 
         fuelCost = (this.distance / 35) * costPerGallon;
 
@@ -74,16 +89,15 @@ class stats {
         if (window.location.origin.indexOf('localhost') !== -1) {
 
             let activity = {
-                commute: true,
+                commute:          true,
                 start_date_local: new Date().toISOString(),
                 distance:         222.71 / 0.00062137,
-                kilojoules:         28879.56,
+                kilojoules:       28879.56,
             };
 
             this.activities.push(activity);
 
             this.extractActivityData(activity);
-
 
             return Promise.resolve();
         }
@@ -121,7 +135,7 @@ class stats {
 
     extractActivityData(activity) {
 
-        if (!!activity.commute && new Date(activity.start_date_local) >= this.beginningOfYear) {
+        if (activity.commute && new Date(activity.start_date_local) >= this.beginningOfYear) {
 
             this.calories += activity.kilojoules;
             this.distance += activity.distance;
