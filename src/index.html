@@ -18,7 +18,7 @@
     </script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <title>commuter stats - {{ title }}</title>
+    <title>commuter stats - Commuter stats</title>
 
     <!-- META DATA -->
 
@@ -27,49 +27,43 @@
 
     <meta name="author" content="">
 
-    <style>
-        <!--
-        inject:css
-
-        -->
-        <!--
-        endinject
-
-        -->
-    </style>
-
     <!-- description and share tags -->
-    <meta name="description" content="{{ description }}">
+    <meta name="description" content="love riding your bike">
 
     <meta property="og:type" content="website">
     <meta property="og:title" content="commuter stats">
-    <meta property="og:url" content="https://commuter-stats.netlify.com{{ url }}">
+    <meta property="og:url" content="https://commuter-stats.netlify.com/">
     <meta property="og:site_name" content="commuter stats">
     <meta property="og:image" content="https://commuter-stats.netlify.com/assets/tree-big.png"/>
-    <meta property="og:description" content="{{ description }}">
+    <meta property="og:description" content="love riding your bike">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="commuter stats">
-    <meta name="twitter:description" content="{{ description }}">
+    <meta name="twitter:description" content="love riding your bike">
     <meta name="twitter:image" content="https://commuter-stats.netlify.com/assets/tree-big.png"/>
 </head>
 <body class="csstransitions">
 
+<nav>
+    <h1>Commuter stats</h1>
+</nav>
 
-
-{% include "layouts/elements/header.html" %}
-
-<!-- General Section -->
 <section id="mainContent">
 
     <i class="fa fa-5x fa-spin fa-circle-o-notch"></i>
 
 </section>
 
-{% include "layouts/elements/footer.html" %}
+<section>
 
-<!-- JS -->
+    <section class="contact">
+        <a href="https://www.strava.com">
+            <img src="/assets/powered-by-strava.png" alt="Powered By Strava">
+        </a>
+        <!--<button id="refresh"></button>-->
+    </section>
 
-<script type="text/javascript" src="/assets/js/commuter-stats.js"></script>
+</section>
+
 
 </body>
 </html>

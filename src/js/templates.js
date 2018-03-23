@@ -1,15 +1,13 @@
-((window) => {
+'use strict';
 
-    'use strict';
+export {
+   welcome,
+   app
+};
 
-    window.templates = {
-        welcome: welcome,
-        app: app
-    }
+function welcome(data) {
 
-    function welcome(data) {
-
-        return `<div class="animated">
+    return `<div class="animated">
     <section id="profile">
 
         <img class="tree" src="/assets/tree.png">
@@ -21,11 +19,11 @@
     </section>
 
 </div>`;
-    }
+}
 
-    function app(data) {
+function app(data) {
 
-        return `<div class="container animated">
+    return `<div class="container animated">
 
     <div id="profile">
 
@@ -43,12 +41,12 @@
             <h3 id="co2"><i class="fa fa-spin fa-spinner"></i></h3>
         </article>
         <article>
-            <i class="fa fa-5x fa-cutlery"></i>
+            <i class="fa fa-5x fa-utensils"></i>
             <h2>Total calories burnt commuting</h2>
             <h3 id="calories"><i class="fa fa-spin fa-spinner"></i></h3>
         </article>
         <article>
-            <i class="fa fa-5x fa-money"></i>
+            <i class="fa fa-5x fa-money-bill-alt"></i>
             <h2>Total cost of fuel saved</h2>
             <h3 id="cost"><i class="fa fa-spin fa-spinner"></i></h3>
         </article>
@@ -59,5 +57,4 @@
     <div id="trees"></div>
     <img src="/assets/tree.png">
 </section>`;
-    }
-})(window);
+}

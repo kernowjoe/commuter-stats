@@ -1,9 +1,9 @@
 {
-  "name": "maintain",
-  "description": "maintain static JAMstack site",
+  "name": "commuter-stats",
+  "description": "Commuter stats static JAMstack site",
   "scripts": {
-    "development": "gulp development",
-    "build": "gulp build --env=production",
+    "development": "webpack-dev-server --inline --progress --port 8000",
+    "build": "webpack --config webpack.config.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,27 +17,22 @@
   },
   "homepage": "https://github.com/kernowjoe/maintain",
   "devDependencies": {
+    "@fortawesome/fontawesome": "^1.1.4",
+    "@fortawesome/fontawesome-free-regular": "^5.0.8",
+    "@fortawesome/fontawesome-free-solid": "^5.0.8",
+    "copy-webpack-plugin": "^4.5.1",
+    "css-loader": "^0.28.11",
+    "extract-text-webpack-plugin": "v4.0.0-alpha.0",
+    "file-loader": "^1.1.11",
     "font-awesome": "^4.7.0",
-    "front-matter": "^2.1.0",
-    "gulp": "3.9.*",
-    "gulp-clean": "*",
-    "gulp-concat": "*",
-    "gulp-data": "*",
-    "gulp-imagemin": "^3.2.0",
-    "gulp-inject": "*",
-    "gulp-nunjucks": "*",
-    "gulp-pretty-url": "*",
-    "gulp-rename": "*",
-    "gulp-sass": "*",
-    "gulp-sequence": "*",
-    "gulp-uglify-es": "*",
-    "gulp-webserver": "*",
-    "js-yaml": "^3.8.2",
-    "mkdirp": "^0.5.1",
-    "nunjucks": "^2.4.2",
-    "run-sequence": "^1.2.2",
-    "showdown": "^1.6.4",
-    "slugify": "^1.1.0"
+    "html-webpack-plugin": "^3.1.0",
+    "node-sass": "^4.7.2",
+    "raw-loader": "^0.5.1",
+    "sass-loader": "^6.0.7",
+    "style-loader": "^0.20.3",
+    "webpack": "^4.2.0",
+    "webpack-cli": "^2.0.13",
+    "webpack-dev-server": "^3.1.1"
   },
   "dependencies": {}
 }
