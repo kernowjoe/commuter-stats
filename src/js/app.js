@@ -36,7 +36,7 @@ import style from '../sass/base.scss'
         let authUrl = 'https://www.strava.com/oauth/authorize?';
 
         let parts = {
-            approval_prompt: 'force',
+            approval_prompt: 'auto',
             client_id:       '14427',
             redirect_uri:    `${window.location.origin}/auth`,
             response_type:   'code',
