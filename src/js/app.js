@@ -2,6 +2,7 @@ import * as render from './views';
 import {stats} from "./stats";
 import * as fontawesome from './font-awesome';
 import * as https from './libs/https-forward';
+import {request}   from "./libs/request";
 import style from '../sass/base.scss'
 
 (() => {
