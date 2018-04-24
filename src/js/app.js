@@ -2,6 +2,7 @@ import * as render from './views';
 import {stats} from "./stats";
 import * as fontawesome from './font-awesome';
 import * as https from './libs/https-forward';
+import {request}   from "./libs/request";
 import style from '../sass/base.scss'
 
 (() => {
@@ -35,7 +36,7 @@ import style from '../sass/base.scss'
         let authUrl = 'https://www.strava.com/oauth/authorize?';
 
         let parts = {
-            approval_prompt: 'force',
+            approval_prompt: 'auto',
             client_id:       '14427',
             redirect_uri:    `${window.location.origin}/auth`,
             response_type:   'code',
