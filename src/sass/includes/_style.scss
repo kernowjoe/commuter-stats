@@ -155,9 +155,6 @@ section {
   visibility: visible;
 }
 
-/* ==================================================================
-	19.0 Responsive
-================================================================== */
 
 .container {
   padding-right: 15px;
@@ -166,6 +163,7 @@ section {
   margin-left: auto;
   max-width:100%;
 }
+
 @media (min-width: 768px) {
 
   body {
@@ -182,18 +180,25 @@ section {
   }
 }
 
-//@media(max-width:991px){
-//
-//  h1 {
-//    font-size: 50px;
-//  }
-//
-//  h2 {
-//    font-size: 44px;
-//  }
-//
-//  h3 {
-//    font-size: 26px;
-//  }
-//
-//}
+footer {
+
+  display:flex;
+
+  a {
+    width: 30%;
+    padding: 1rem;
+    flex-grow: 1;
+  }
+}
+@media (min-width: 768px) {
+
+    footer {
+
+      padding:0 25%;
+
+      a {
+        padding: 2rem;
+      }
+    }
+
+}
