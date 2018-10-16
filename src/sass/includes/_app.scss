@@ -1,7 +1,6 @@
 h1 {
 
   svg.fa-cog {
-    display:none;
     cursor:pointer;
     position: absolute;
     right: 1em;
@@ -76,6 +75,20 @@ img {
       font-weight:900;
       padding-bottom:0.5em;
     }
+  }
+}
+
+.modal {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 0;
+  background: whitesmoke;
+  width: 100%;
+  transition: 0.5s ease-in;
+
+  &.open {
+    height:100%;
   }
 }
 

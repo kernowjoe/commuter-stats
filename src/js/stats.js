@@ -10,12 +10,14 @@ class stats {
         this.storage    = storage;
         this.activities = [];
 
-        this.settings({costPerLitre: 123.9, carSize: 'average'});
     }
 
     setup() {
 
         this.reset();
+        const settings = JSON.parse(localStorage.getItem('settings'));
+
+        !!settings ? this.settings(settings) : this.settings({costPerLitre: 123.9, mpg: 35});
 
         this.athlete         = JSON.parse(localStorage.getItem(this.storage.profile));
         this.page            = 1;
@@ -35,18 +37,14 @@ class stats {
      *
      * @param costPerLitre
      * @param carSize
+     * @param mpg
      */
-    settings({costPerLitre, carSize}) {
-
-        const carSizes = {
-            small:   0.23107,
-            medium:  0.2767,
-            large:   0.34837,
-            average: 0.28485,
-        };
+    settings({costPerLitre, mpg}) {
 
         this.costPerLitre  = costPerLitre;
-        this.co2Conversion = carSizes[carSize];
+        this.mpg           = mpg;
+
+        localStorage.setItem('settings', JSON.stringify({costPerLitre, mpg}));
     }
 
     reset() {
@@ -65,6 +63,7 @@ class stats {
         let i = document.createElement('i');
 
         i.classList.add('fa', 'fa-fw', 'fa-cog');
+        i.setAttribute('click', 'edit-stuff');
 
         document.getElementById('title').appendChild(i);
 
@@ -80,20 +79,18 @@ class stats {
     displayStats() {
 
         let fuelCost,
-            mpg            = 35,
             litresInGallon = 4.54609,
             costPerGallon  = this.costPerLitre * litresInGallon;
 
-        this.distance = this.distance * 0.00062137;
-        this.co2      = this.distance * this.co2Conversion;
+        let distance = this.distance * 0.00062137;
 
-        this.co2 = ((this.distance / mpg) * litresInGallon) * 2.57842605805682;
+        this.co2 = ((distance / this.mpg) * litresInGallon) * 2.57842605805682;
 
         //console.log('co2 based on mpg', thing.toFixed(2));
 
-        fuelCost = (this.distance / mpg) * costPerGallon;
+        fuelCost = (distance / this.mpg) * costPerGallon;
 
-        document.getElementById('distance').innerHTML = `${(this.distance).toFixed(2)} miles`;
+        document.getElementById('distance').innerHTML = `${(distance).toFixed(2)} miles`;
         document.getElementById('co2').innerHTML      = `${(this.co2).toFixed(2)} kg`;
         document.getElementById('calories').innerHTML = `${(this.calories * 1.11484317115).toFixed(2)} calories`;
         document.getElementById('trees').innerHTML    = `Equivalent to planting <br>${(this.co2 * 0.005511556554622).toFixed(2)} trees`;
@@ -136,6 +133,44 @@ class stats {
                 return more ? this.loadActivities() : Promise.resolve();
 
             });
+    }
+
+    edit() {
+
+        let modal = `
+<section class="body">
+
+    <h2>Edit your data from here.</h2>
+    
+    <form>
+        <div>
+            <label for="mpg">Miles per Gallon:</label>
+            <input name="mpg" type="number" value="${this.mpg}">
+        </div>
+        <div>
+            <label for="mpg">Cost per litre:</label>
+            <input name="costPerLitre" value="${this.costPerLitre}">
+        </div>
+        <button id="save">Update</button>
+    </form>
+</section>`
+
+        document.querySelector('.modal').innerHTML = modal;
+        document.querySelector('.modal').classList.add('open');
+
+        document.addEventListener('click', event => {
+
+            if (!event.target.matches('button#save')) return;
+
+            event.preventDefault();
+
+            const mpg          = document.querySelector('input[name="mpg"]').value,
+                  costPerLitre = document.querySelector('input[name="costPerLitre"]').value;
+
+            this.settings({costPerLitre, mpg});
+            this.refreshStats();
+            document.querySelector('.modal').classList.remove('open');
+        })
     }
 
     refreshStats() {

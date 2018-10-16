@@ -86,6 +86,17 @@ import style from '../sass/base.scss'
                .then(() => Stats.profile())
                .then(() => Stats.loadActivities())
                .then(() => Stats.displayStats())
+            .then(() => clickListener())
+    }
+
+    function clickListener() {
+
+        document.addEventListener('click', event => {
+
+            if(!event.target.matches('[click="edit-stuff"]')) return;
+
+            Stats.edit();
+        })
     }
 
 })();
