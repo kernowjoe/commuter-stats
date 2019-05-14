@@ -183,6 +183,8 @@ section {
 footer {
 
   display:flex;
+  max-width: 600px;
+  margin: 0 auto;
 
   a {
     width: 30%;

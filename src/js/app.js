@@ -86,17 +86,20 @@ import style from '../sass/base.scss'
                .then(() => Stats.profile())
                .then(() => Stats.loadActivities())
                .then(() => Stats.displayStats())
-            .then(() => clickListener())
+               .then(() => clickListener())
     }
 
     function clickListener() {
 
-        document.addEventListener('click', event => {
+        const mutationObserver = new MutationObserver(() => {
 
-            if(!event.target.matches('[click="edit-stuff"]')) return;
+            const setupButton = document.querySelector('[click="editSettings"]');
 
-            Stats.edit();
-        })
+            setupButton.localName === 'svg' && setupButton.addEventListener('click', () => Stats.edit());
+        });
+
+        mutationObserver.observe(document.documentElement, {attributes: true})
+
     }
 
 })();

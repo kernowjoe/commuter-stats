@@ -63,7 +63,7 @@ class stats {
         let i = document.createElement('i');
 
         i.classList.add('fa', 'fa-fw', 'fa-cog');
-        i.setAttribute('click', 'edit-stuff');
+        i.setAttribute('click', 'editSettings');
 
         document.getElementById('title').appendChild(i);
 
