@@ -40,7 +40,7 @@ import style from '../sass/base.scss'
             client_id:       '14427',
             redirect_uri:    `${window.location.origin}/auth`,
             response_type:   'code',
-            scope:           'view_private',
+            scope:           'activity:read_all',
         };
 
         Object.keys(parts).forEach(part => authUrl += `${part}=${parts[part]}&`);
